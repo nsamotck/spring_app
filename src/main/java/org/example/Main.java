@@ -12,6 +12,12 @@ public class Main {
 
         contactsHandler.saveContact(new Contact("snn", "+7999", "@gmail"));
         contactsHandler.saveContact(new Contact("nam", "+7911", "@mail"));
+        contactsHandler.saveContact(new Contact("nams", "+7920", "@mail.com"));
+        contactsHandler.showContacts();
+
+        System.out.println(contactsHandler.deleteContactByEmail("@mail.com"));
+        System.out.println(contactsHandler.deleteContactByEmail("@mail.ru"));
+
         contactsHandler.showContacts();
     }
 }

@@ -14,9 +14,21 @@ public class Contact {
         this.email = email;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     @Override
     public String toString() {
-        return String.format("%s | %s | %s", fullName, phoneNumber, email);
+        return String.format("%s | %s | %s", getFullName(), getPhoneNumber(), getEmail());
     }
 
     @Override

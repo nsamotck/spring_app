@@ -3,7 +3,9 @@ package org.example;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 
 @Component
 public class ContactsHandler {
@@ -15,5 +17,14 @@ public class ContactsHandler {
 
     public void showContacts() {
         System.out.println(contacts);
+    }
+
+    /***
+     * Removes all found contacts with given email
+     * @param email
+     * @return - true if any Contact was removed
+     */
+    public boolean deleteContactByEmail(String email) {
+        return contacts.removeIf(contact -> contact.getEmail().equals(email));
     }
 }
