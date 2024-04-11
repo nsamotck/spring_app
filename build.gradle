@@ -16,6 +16,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework/spring-context
     implementation 'org.springframework:spring-context:6.1.0'
 
+    // https://mvnrepository.com/artifact/com.opencsv/opencsv
+    implementation 'com.opencsv:opencsv:5.9'
 }
 
 test {

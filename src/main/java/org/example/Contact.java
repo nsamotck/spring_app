@@ -1,10 +1,18 @@
 package org.example;
 
+import com.opencsv.bean.CsvBindByPosition;
+
 import java.util.Objects;
 
-public class Contact {
+public class Contact implements CSVBean {
+
+    @CsvBindByPosition(position = 0)
     private String fullName;
+
+    @CsvBindByPosition(position = 1)
     private String phoneNumber;
+
+    @CsvBindByPosition(position = 2)
     private String email;
 
     public Contact(String fullName, String phoneNumber, String email) {

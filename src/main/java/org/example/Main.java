@@ -4,7 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
         Worker worker = context.getBean(Worker.class);
@@ -18,6 +18,8 @@ public class Main {
         System.out.println(contactsHandler.deleteContactByEmail("@mail.com"));
         System.out.println(contactsHandler.deleteContactByEmail("@mail.ru"));
 
+        contactsHandler.saveContact(new Contact("namssss", "+7921", "@gmail.com"));
         contactsHandler.showContacts();
+        contactsHandler.writeContactsToCSV();
     }
 }

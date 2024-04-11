@@ -2,13 +2,15 @@ package org.example;
 
 import org.springframework.stereotype.Component;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
-import java.util.function.Predicate;
 
 @Component
 public class ContactsHandler {
+    private static final String RUNTIME_CONTACTS_FILE = "csv/runtime-contacts.csv";
+
     private final Set<Contact> contacts = new HashSet<>();
 
     public void saveContact(Contact contact) {
@@ -26,5 +28,18 @@ public class ContactsHandler {
      */
     public boolean deleteContactByEmail(String email) {
         return contacts.removeIf(contact -> contact.getEmail().equals(email));
+    }
+
+    /***
+     * Writes all available contacts to CSV using default file location
+     * @throws Exception
+     */
+    public void writeContactsToCSV() throws Exception {
+        Path pathToSave = Paths.get(
+                ClassLoader.getSystemResource(RUNTIME_CONTACTS_FILE).toURI());
+        CSVUtils.writeBeansToCsv(
+                pathToSave,
+                contacts.stream().toList()
+        );
     }
 }
