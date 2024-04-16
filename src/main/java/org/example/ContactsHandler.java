@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.utils.CSVUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Path;
@@ -9,9 +11,10 @@ import java.util.Set;
 
 @Component
 public class ContactsHandler {
-    private static final String RUNTIME_CONTACTS_FILE = "csv/runtime-contacts.csv";
 
     private final Set<Contact> contacts = new HashSet<>();
+    @Value("${contacts.runtime.file}")
+    private String contactsFileName;
 
     public void saveContact(Contact contact) {
         contacts.add(contact);
@@ -36,7 +39,7 @@ public class ContactsHandler {
      */
     public void writeContactsToCSV() throws Exception {
         Path pathToSave = Paths.get(
-                ClassLoader.getSystemResource(RUNTIME_CONTACTS_FILE).toURI());
+                ClassLoader.getSystemResource(contactsFileName).toURI());
         CSVUtils.writeBeansToCsv(
                 pathToSave,
                 contacts.stream().toList()

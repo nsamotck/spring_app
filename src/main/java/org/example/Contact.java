@@ -1,6 +1,7 @@
 package org.example;
 
 import com.opencsv.bean.CsvBindByPosition;
+import org.example.contract.CSVBean;
 
 import java.util.Objects;
 

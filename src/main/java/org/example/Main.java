@@ -1,13 +1,16 @@
 package org.example;
 
+import org.example.config.DefaultAppConfig;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        ApplicationContext context = new AnnotationConfigApplicationContext(DefaultAppConfig.class);
 
         Worker worker = context.getBean(Worker.class);
+        ProfileWorker profileWorker = worker.getProfileWorker();
+        profileWorker.init();
         ContactsHandler contactsHandler = worker.getContactsHandler();
 
         contactsHandler.saveContact(new Contact("snn", "+7999", "@gmail"));

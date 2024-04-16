@@ -1,4 +1,4 @@
-package org.example;
+package org.example.contract;
 
 /***
  * Marker-interface for CSV beans

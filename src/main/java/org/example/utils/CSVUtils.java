@@ -1,7 +1,8 @@
-package org.example;
+package org.example.utils;
 
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import org.example.contract.CSVBean;
 
 import java.io.FileWriter;
 import java.io.Writer;
@@ -17,7 +18,7 @@ public class CSVUtils {
      * Writes beans to CSV file
      * @param path - where to write
      * @param beans - what to write
-     * @param <T> - type of CSVBean (see {@link org.example.CSVBean})
+     * @param <T> - type of CSVBean (see {@link CSVBean})
      * @throws Exception
      */
     public static <T extends CSVBean> void writeBeansToCsv(Path path, List<T> beans) throws Exception {

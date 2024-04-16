@@ -6,14 +6,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class Worker {
 
+    private final ProfileWorker profileWorker;
     private final ContactsHandler contactsHandler;
 
     @Autowired
-    public Worker(ContactsHandler contactsHandler) {
+    public Worker(ProfileWorker profileWorker, ContactsHandler contactsHandler) {
+        this.profileWorker = profileWorker;
         this.contactsHandler = contactsHandler;
     }
 
     public ContactsHandler getContactsHandler() {
         return contactsHandler;
+    }
+
+    public ProfileWorker getProfileWorker() {
+        return profileWorker;
     }
 }
