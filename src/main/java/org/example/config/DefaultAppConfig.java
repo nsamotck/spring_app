@@ -2,10 +2,7 @@ package org.example.config;
 
 import org.example.InitContactsDefault;
 import org.example.contract.ContactsInitializer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 
 @ComponentScan("org.example")
 @Configuration
@@ -13,6 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 public class DefaultAppConfig {
 
     @Bean
+    @Profile("default")
     public ContactsInitializer contactsInitializer() {
         return new InitContactsDefault();
     }
