@@ -16,6 +16,10 @@ public class ContactsHandler {
     @Value("${contacts.runtime.file}")
     private String contactsFileName;
 
+    public Set<Contact> getContacts() {
+        return contacts;
+    }
+
     public void saveContact(Contact contact) {
         contacts.add(contact);
     }

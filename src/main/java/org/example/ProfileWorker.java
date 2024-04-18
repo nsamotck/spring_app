@@ -12,7 +12,7 @@ public class ProfileWorker {
         this.contactsInitializer = contactsInitializer;
     }
 
-    public void init() {
+    public void init() throws Exception {
         contactsInitializer.initContacts();
     }
 }

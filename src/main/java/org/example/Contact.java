@@ -16,10 +16,24 @@ public class Contact implements CSVBean {
     @CsvBindByPosition(position = 2)
     private String email;
 
+    public Contact() {
+    }
+
     public Contact(String fullName, String phoneNumber, String email) {
-        System.out.println("Initializing contact...");
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
     }
 

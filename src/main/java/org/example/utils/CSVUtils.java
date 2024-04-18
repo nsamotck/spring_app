@@ -1,16 +1,11 @@
 package org.example.utils;
 
-import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import org.example.contract.CSVBean;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-import java.nio.file.Files;
+import java.io.*;
 import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.List;
@@ -46,13 +41,14 @@ public class CSVUtils {
      * @throws IOException - if reading failed
      */
     public static <T extends CSVBean> Set<T> readBeansFromCSV(Path path, Class<T> clazz) throws IOException {
-        CsvToBean<T> cb;
-        try (Reader reader = Files.newBufferedReader(path)) {
-            cb = new CsvToBeanBuilder<T>(reader)
-                    .withSeparator(';')
+        List<T> beansList;
+        try (Reader reader = new FileReader(path.toString())) {
+            beansList = new CsvToBeanBuilder<T>(reader)
                     .withType(clazz)
-                    .build();
+                    .withSeparator(';')
+                    .build()
+                    .parse();
         }
-        return new HashSet<>(cb.parse());
+        return new HashSet<>(beansList);
     }
 }

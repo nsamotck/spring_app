@@ -17,7 +17,7 @@ dependencies {
     implementation 'org.springframework:spring-context:6.1.0'
 
     // https://mvnrepository.com/artifact/com.opencsv/opencsv
-    implementation 'com.opencsv:opencsv:5.9'
+    implementation 'com.opencsv:opencsv:5.7.1'
 
     // https://mvnrepository.com/artifact/org.yaml/snakeyaml
     implementation 'org.yaml:snakeyaml:2.2'

@@ -2,5 +2,5 @@ package org.example.contract;
 
 public interface ContactsInitializer {
 
-    void initContacts();
+    void initContacts() throws Exception;
 }

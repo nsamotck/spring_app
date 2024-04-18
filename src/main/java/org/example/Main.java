@@ -12,6 +12,7 @@ public class Main {
         ProfileWorker profileWorker = worker.getProfileWorker();
         profileWorker.init();
         ContactsHandler contactsHandler = worker.getContactsHandler();
+        System.out.println("Contacts after init: " + contactsHandler.getContacts());
 
         contactsHandler.saveContact(new Contact("snn", "+7999", "@gmail"));
         contactsHandler.saveContact(new Contact("nam", "+7911", "@mail"));
