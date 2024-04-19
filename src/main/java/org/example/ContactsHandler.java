@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,12 +21,12 @@ public class ContactsHandler {
         return contacts;
     }
 
-    public void saveContact(Contact contact) {
+    public void addContact(Contact contact) {
         contacts.add(contact);
     }
 
     public void showContacts() {
-        System.out.println(contacts);
+        contacts.stream().sorted(Comparator.comparing(Contact::getFullName)).forEach(System.out::println);
     }
 
     /***
