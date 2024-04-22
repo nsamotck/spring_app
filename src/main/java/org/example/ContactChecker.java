@@ -7,7 +7,7 @@ public class ContactChecker {
     private static final String PHONE_MATCHER = "(\\+*)\\d+";
     private static final String EMAIL_MATCHER = ".+@\\w+\\.[a-z]+$";
 
-    public static boolean checkContactInput(String input) {
+    public static boolean isContactInputCorrect(String input) {
         String[] inputSpl = input.split(";");
         return isWholeInputCorrect(input) && isPhoneCorrect(inputSpl[1]) && isEmailCorrect(inputSpl[2]);
     }

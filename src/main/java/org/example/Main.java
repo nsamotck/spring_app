@@ -45,16 +45,25 @@ public class Main {
             if (inputLine.equals(CMD_ADD)) {
                 System.out.printf("Введите данные контакта в формате \"%s\":\n", ContactChecker.CONTACT_FORMAT_INFO);
                 String contactData = reader.readLine();
-                if (ContactChecker.checkContactInput(contactData)) { // TODO change method name
+                if (ContactChecker.isContactInputCorrect(contactData)) {
                     String[] contactSpl = contactData.split(";");
                     contactsHandler.addContact(new Contact(contactSpl[0], contactSpl[1], contactSpl[2]));
                     System.out.println("Контакт успешно добавлен");
                 }
                 continue;
             }
-            if (inputLine.equals(CMD_SHOW)){
+            if (inputLine.equals(CMD_SHOW)) {
                 contactsHandler.showContacts();
                 continue;
+            }
+            if (inputLine.equals(CMD_DELETE)) {
+                System.out.println("Введите e-mail контакта, который хотите удалить");
+                String contactEmail = reader.readLine();
+                if (contactsHandler.deleteContactByEmail(contactEmail)) {
+                    System.out.println("Контакт удалён");
+                } else {
+                    System.out.printf("Контакт с e-mail %s не найден в списке%n", contactEmail);
+                }
             }
             if (!cmdSwitches.containsKey(inputLine)) {
                 System.out.printf("Неизвестная опция \"%s\", для ознакомления с действующими опциями используйте %s%n", inputLine, CMD_HELP);
