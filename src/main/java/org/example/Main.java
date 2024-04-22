@@ -6,7 +6,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -23,56 +22,58 @@ public class Main {
         ContactsHandler contactsHandler = worker.getContactsHandler();
 
         Map<String, String> cmdSwitches = getCMDSwitchesMap();
-        System.out.println(cmdSwitches);
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+            System.out.println("Добро пожаловать в приложение \"Контакты\"");
+            System.out.println("Список доступных опций для работы с приложением можно получить через команду " + CMD_HELP);
+            System.out.println("______________________________________________________________________________________");
 
-        System.out.println("Добро пожаловать в приложение \"Контакты\"");
-        System.out.println("Список доступных опций для работы с приложением можно получить через команду " + CMD_HELP);
-        System.out.println("______________________________________________________________________________________");
+            String inputLine;
+            boolean continueLoop = true;
+            while (continueLoop) {
+                System.out.println("Выберите нужную вам опцию:");
+                inputLine = reader.readLine();
 
-        String inputLine;
-        while (true) {
-            System.out.println("Выберите нужную вам опцию:");
-            inputLine = reader.readLine();
-            if (inputLine.equals(CMD_EXIT)) {
-                break;
-            }
-            if (inputLine.equals(CMD_HELP)) {
-                cmdSwitches.keySet().stream()
-                        .sorted()
-                        .forEach(k -> System.out.println(k + " - " + cmdSwitches.get(k)));
-                continue;
-            }
-            if (inputLine.equals(CMD_ADD)) {
-                System.out.printf("Введите данные контакта в формате \"%s\":\n", ContactChecker.CONTACT_FORMAT_INFO);
-                String contactData = reader.readLine();
-                if (ContactChecker.isContactInputCorrect(contactData)) {
-                    String[] contactSpl = contactData.split(";");
-                    contactsHandler.addContact(new Contact(contactSpl[0], contactSpl[1], contactSpl[2]));
-                    System.out.println("Контакт успешно добавлен");
+                switch (inputLine) {
+                    case CMD_EXIT:
+                        continueLoop = false;
+                        break;
+                    case CMD_HELP:
+                        cmdSwitches.keySet().forEach(k -> System.out.println(k + " - " + cmdSwitches.get(k)));
+                        System.out.println();
+                        break;
+                    case CMD_ADD:
+                        System.out.printf("Введите данные контакта в формате \"%s\":\n", ContactChecker.CONTACT_FORMAT_INFO);
+                        String contactData = reader.readLine();
+                        if (ContactChecker.isContactInputCorrect(contactData)) {
+                            String[] contactSpl = contactData.split(";");
+                            contactsHandler.addContact(new Contact(contactSpl[0], contactSpl[1], contactSpl[2]));
+                            System.out.println("Контакт успешно добавлен\n");
+                        }
+                        System.out.println();
+                        break;
+                    case CMD_SHOW:
+                        contactsHandler.showContacts();
+                        System.out.println();
+                        break;
+                    case CMD_DELETE:
+                        System.out.println("Введите e-mail контакта, который хотите удалить:");
+                        String contactEmail = reader.readLine();
+                        if (contactsHandler.deleteContactByEmail(contactEmail)) {
+                            System.out.println("Контакт удалён\n");
+                        } else {
+                            System.out.printf("Контакт с e-mail %s не найден в списке%n", contactEmail);
+                            System.out.println();
+                        }
+                        break;
+                    case CMD_SAVE_TO_FILE:
+                        contactsHandler.writeContactsToCSV();
+                        System.out.println("Список контактов сохранён в файл\n");
+                        break;
+                    default:
+                        System.out.printf("Неизвестная опция \"%s\", для ознакомления с действующими опциями используйте %s%n", inputLine, CMD_HELP);
+                        System.out.println();
                 }
-                continue;
-            }
-            if (inputLine.equals(CMD_SHOW)) {
-                contactsHandler.showContacts();
-                continue;
-            }
-            if (inputLine.equals(CMD_DELETE)) {
-                System.out.println("Введите e-mail контакта, который хотите удалить");
-                String contactEmail = reader.readLine();
-                if (contactsHandler.deleteContactByEmail(contactEmail)) {
-                    System.out.println("Контакт удалён");
-                } else {
-                    System.out.printf("Контакт с e-mail %s не найден в списке%n", contactEmail);
-                }
-            }
-            if (inputLine.equals(CMD_SAVE_TO_FILE)) {
-                contactsHandler.writeContactsToCSV();
-                System.out.println("Список контактов сохранён в файл");
-            }
-            if (!cmdSwitches.containsKey(inputLine)) {
-                System.out.printf("Неизвестная опция \"%s\", для ознакомления с действующими опциями используйте %s%n", inputLine, CMD_HELP);
             }
         }
     }
