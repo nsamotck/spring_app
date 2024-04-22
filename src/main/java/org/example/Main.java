@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import static org.example.CMDSwitches.*;
 
@@ -22,6 +23,7 @@ public class Main {
         ContactsHandler contactsHandler = worker.getContactsHandler();
 
         Map<String, String> cmdSwitches = getCMDSwitchesMap();
+        System.out.println(cmdSwitches);
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -73,22 +75,10 @@ public class Main {
                 System.out.printf("Неизвестная опция \"%s\", для ознакомления с действующими опциями используйте %s%n", inputLine, CMD_HELP);
             }
         }
-
-        /*contactsHandler.saveContact(new Contact("snn", "+7999", "@gmail"));
-        contactsHandler.saveContact(new Contact("nam", "+7911", "@mail"));
-        contactsHandler.saveContact(new Contact("nams", "+7920", "@mail.com"));
-        contactsHandler.showContacts();
-
-        System.out.println(contactsHandler.deleteContactByEmail("@mail.com"));
-        System.out.println(contactsHandler.deleteContactByEmail("@mail.ru"));
-
-        contactsHandler.saveContact(new Contact("namssss", "+7921", "@gmail.com"));
-        contactsHandler.showContacts();
-        contactsHandler.writeContactsToCSV();*/
     }
 
     private static Map<String, String> getCMDSwitchesMap() {
-        Map<String, String> cmdSwitches = new HashMap<>();
+        Map<String, String> cmdSwitches = new TreeMap<>();
         cmdSwitches.put(CMD_HELP, "получить список опций для работы с приложением");
         cmdSwitches.put(CMD_EXIT, "выйти из приложения");
         cmdSwitches.put(CMD_ADD, String.format("добавить контакт в формате \"%s\"", ContactChecker.CONTACT_FORMAT_INFO));
