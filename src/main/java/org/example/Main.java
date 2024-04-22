@@ -65,6 +65,10 @@ public class Main {
                     System.out.printf("Контакт с e-mail %s не найден в списке%n", contactEmail);
                 }
             }
+            if (inputLine.equals(CMD_SAVE_TO_FILE)) {
+                contactsHandler.writeContactsToCSV();
+                System.out.println("Список контактов сохранён в файл");
+            }
             if (!cmdSwitches.containsKey(inputLine)) {
                 System.out.printf("Неизвестная опция \"%s\", для ознакомления с действующими опциями используйте %s%n", inputLine, CMD_HELP);
             }

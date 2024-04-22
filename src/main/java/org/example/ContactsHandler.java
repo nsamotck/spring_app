@@ -26,6 +26,10 @@ public class ContactsHandler {
     }
 
     public void showContacts() {
+        if (contacts.isEmpty()) {
+            System.out.println("Контакты отсутствуют в списке");
+            return;
+        }
         contacts.stream().sorted(Comparator.comparing(Contact::getFullName)).forEach(System.out::println);
     }
 
